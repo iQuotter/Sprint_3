@@ -15,6 +15,25 @@ class TestStellarBurgers:
     def __wait_element(self, driver, xpath_element):
         WebDriverWait(driver, 3).until(ec.visibility_of_element_located((By.XPATH, xpath_element)))
 
+    def __login(self, driver):
+        if driver.current_url == "https://stellarburgers.nomoreparties.site/login":
+            located_email = driver.find_element(By.XPATH, ".//input[(@name='name')]")
+            time.sleep(1)
+            located_password = driver.find_element(By.XPATH, ".//input[(@name='Пароль')]")
+            time.sleep(1)
+            located_enter_button = driver.find_element(By.XPATH, ".//*[text()='Войти']")
+            time.sleep(1)
+
+            email_value = 'EvgeniyGrekov231@mail.ru'
+            password_value = '123456'
+
+            located_email.send_keys(email_value)
+            time.sleep(1)
+            located_password.send_keys(password_value)
+            time.sleep(1)
+            located_enter_button.click()
+            time.sleep(1)
+
     # @pytest.mark.skip()
     def test_registration(self, driver):
         driver.get("https://stellarburgers.nomoreparties.site/register")
@@ -80,45 +99,21 @@ class TestStellarBurgers:
     def test_authorization_button_personal_account(self, driver):
         driver.find_element(By.XPATH, ".//p[text()='Личный Кабинет']").click()
 
-        located_email = driver.find_element(By.XPATH, ".//input[(@name='name')]")
-        located_password = driver.find_element(By.XPATH, ".//input[(@name='Пароль')]")
-        located_enter_button = driver.find_element(By.XPATH, ".//*[text()='Войти']")
-
-        email_value = 'EvgeniyGrekov231@mail.ru'
-        password_value = '123456'
-
-        located_email.send_keys(email_value)
-        located_password.send_keys(password_value)
-        located_enter_button.click()
-
-        time.sleep(1)
+        self.__login(driver)
 
         driver.find_element(By.XPATH, "//p[text()='Личный Кабинет']").click()
 
         assert driver.current_url == "https://stellarburgers.nomoreparties.site/account" \
                or driver.current_url == "https://stellarburgers.nomoreparties.site/account/profile"
+        self.__wait_element(driver, ".//button[text()='Выход']")
+        assert driver.find_element(By.XPATH, ".//button[text()='Выход']").is_enabled()
 
     # @pytest.mark.skip()
     def test_exit_accout(self, driver):
         driver.find_element(By.XPATH, ".//p[text()='Личный Кабинет']").click()
         time.sleep(1)
-        if driver.current_url == "https://stellarburgers.nomoreparties.site/login":
-            located_email = driver.find_element(By.XPATH, ".//input[(@name='name')]")
-            time.sleep(1)
-            located_password = driver.find_element(By.XPATH, ".//input[(@name='Пароль')]")
-            time.sleep(1)
-            located_enter_button = driver.find_element(By.XPATH, ".//*[text()='Войти']")
-            time.sleep(1)
 
-            email_value = 'EvgeniyGrekov231@mail.ru'
-            password_value = '123456'
-
-            located_email.send_keys(email_value)
-            time.sleep(1)
-            located_password.send_keys(password_value)
-            time.sleep(1)
-            located_enter_button.click()
-            time.sleep(1)
+        self.__login(driver)
 
         driver.find_element(By.XPATH, ".//p[text()='Личный Кабинет']").click()
         time.sleep(1)
@@ -148,27 +143,13 @@ class TestStellarBurgers:
         driver.find_element(By.XPATH, ".//button[contains(text(),'Войти')]").click()
         time.sleep(1)
 
-        located_email = driver.find_element(By.XPATH, ".//input[(@name='name')]")
-        time.sleep(1)
-        located_password = driver.find_element(By.XPATH, ".//input[@name='Пароль']")
-        time.sleep(1)
-        located_enter_button = driver.find_element(By.XPATH, ".//*[text()='Войти']")
-        time.sleep(1)
-
-        email_value = 'EvgeniyGrekov231@mail.ru'
-        password_value = '123456'
-
-        located_email.send_keys(email_value)
-        time.sleep(1)
-        located_password.send_keys(password_value)
-        time.sleep(1)
-        located_enter_button.click()
-        time.sleep(1)
+        self.__login(driver)
 
         driver.find_element(By.XPATH, ".//p[text()='Личный Кабинет']").click()
         time.sleep(2)
         assert driver.current_url == "https://stellarburgers.nomoreparties.site/account" \
                or driver.current_url == "https://stellarburgers.nomoreparties.site/account/profile"
+        self.__wait_element(driver, ".//button[text()='Выход']")
         assert driver.find_element(By.XPATH, ".//button[text()='Выход']").is_displayed()
 
     # @pytest.mark.skip()
@@ -189,36 +170,16 @@ class TestStellarBurgers:
             time.sleep(1)
 
         self.__wait_element(driver, ".//*[text()='Войти']")
-        time.sleep(1)
-        located_enter = driver.find_element(By.XPATH, ".//*[text()='Войти']")
-        time.sleep(1)
-        driver.execute_script("arguments[0].scrollIntoView();", located_enter)
-        time.sleep(1)
-
         driver.find_element(By.XPATH, ".//*[text()='Войти']").click()
         time.sleep(1)
 
-        located_email = driver.find_element(By.XPATH, ".//input[(@name='name')]")
-        time.sleep(1)
-        located_password = driver.find_element(By.XPATH, ".//input[(@name='Пароль')]")
-        time.sleep(1)
-        located_enter_button = driver.find_element(By.XPATH, ".//*[text()='Войти']")
-        time.sleep(1)
-
-        email_value = 'EvgeniyGrekov231@mail.ru'
-        password_value = '123456'
-
-        located_email.send_keys(email_value)
-        time.sleep(1)
-        located_password.send_keys(password_value)
-        time.sleep(1)
-        located_enter_button.click()
-        time.sleep(1)
+        self.__login(driver)
 
         driver.find_element(By.XPATH, ".//p[text()='Личный Кабинет']").click()
         time.sleep(2)
         assert driver.current_url == "https://stellarburgers.nomoreparties.site/account" \
                or driver.current_url == "https://stellarburgers.nomoreparties.site/account/profile"
+        self.__wait_element(driver, ".//button[text()='Выход']")
         assert driver.find_element(By.XPATH, ".//button[text()='Выход']").is_displayed()
 
     # @pytest.mark.skip()
@@ -239,73 +200,36 @@ class TestStellarBurgers:
         time.sleep(1)
         driver.find_element(By.XPATH, ".//*[text()='Войти']").click()
 
-        time.sleep(3)
-        located_email = driver.find_element(By.XPATH, ".//input[(@name='name')]")
-        located_password = driver.find_element(By.XPATH, ".//input[(@name='Пароль')]")
-        located_enter_button = driver.find_element(By.XPATH, ".//*[text()='Войти']")
-
-        located_email.send_keys("EvgeniyGrekov231@mail.ru")
-        time.sleep(1)
-        located_password.send_keys("123456")
-        time.sleep(1)
-        located_enter_button.click()
+        self.__login(driver)
 
         driver.find_element(By.XPATH, ".//p[text()='Личный Кабинет']").click()
         time.sleep(2)
         assert driver.current_url == "https://stellarburgers.nomoreparties.site/account" \
                or driver.current_url == "https://stellarburgers.nomoreparties.site/account/profile"
+        self.__wait_element(driver, ".//button[text()='Выход']")
         assert driver.find_element(By.XPATH, ".//button[text()='Выход']").is_displayed()
 
     # @pytest.mark.skip()
     def test_transition_to_personal_account(self, driver):
         driver.find_element(By.XPATH, ".//p[text()='Личный Кабинет']").click()
         time.sleep(1)
-        if driver.current_url == "https://stellarburgers.nomoreparties.site/login":
-            located_email = driver.find_element(By.XPATH, ".//input[(@name='name')]")
-            time.sleep(1)
-            located_password = driver.find_element(By.XPATH, ".//input[(@name='Пароль')]")
-            time.sleep(1)
-            located_enter_button = driver.find_element(By.XPATH, ".//*[text()='Войти']")
-            time.sleep(1)
 
-            email_value = 'EvgeniyGrekov231@mail.ru'
-            password_value = '123456'
-
-            located_email.send_keys(email_value)
-            time.sleep(1)
-            located_password.send_keys(password_value)
-            time.sleep(1)
-            located_enter_button.click()
-            time.sleep(1)
+        self.__login(driver)
 
         driver.find_element(By.XPATH, ".//p[text()='Личный Кабинет']").click()
         time.sleep(1)
 
         assert driver.current_url == "https://stellarburgers.nomoreparties.site/account" \
                or driver.current_url == "https://stellarburgers.nomoreparties.site/account/profile"
+        self.__wait_element(driver, ".//button[text()='Выход']")
         assert driver.find_element(By.XPATH, ".//button[text()='Выход']").is_enabled()
 
     # @pytest.mark.skip()
     def test_transition_logo(self, driver):
         driver.find_element(By.XPATH, ".//p[text()='Личный Кабинет']").click()
         time.sleep(1)
-        if driver.current_url == "https://stellarburgers.nomoreparties.site/login":
-            located_email = driver.find_element(By.XPATH, ".//input[(@name='name')]")
-            time.sleep(1)
-            located_password = driver.find_element(By.XPATH, ".//input[(@name='Пароль')]")
-            time.sleep(1)
-            located_enter_button = driver.find_element(By.XPATH, ".//*[text()='Войти']")
-            time.sleep(1)
 
-            email_value = 'EvgeniyGrekov231@mail.ru'
-            password_value = '123456'
-
-            located_email.send_keys(email_value)
-            time.sleep(1)
-            located_password.send_keys(password_value)
-            time.sleep(1)
-            located_enter_button.click()
-            time.sleep(1)
+        self.__login(driver)
 
         driver.find_element(By.XPATH, ".//p[text()='Личный Кабинет']").click()
         time.sleep(1)
@@ -320,23 +244,8 @@ class TestStellarBurgers:
     def test_transition_constructor(self, driver):
         driver.find_element(By.XPATH, ".//p[text()='Личный Кабинет']").click()
         time.sleep(1)
-        if driver.current_url == "https://stellarburgers.nomoreparties.site/login":
-            located_email = driver.find_element(By.XPATH, ".//input[(@name='name')]")
-            time.sleep(1)
-            located_password = driver.find_element(By.XPATH, ".//input[(@name='Пароль')]")
-            time.sleep(1)
-            located_enter_button = driver.find_element(By.XPATH, ".//*[text()='Войти']")
-            time.sleep(1)
 
-            email_value = 'EvgeniyGrekov231@mail.ru'
-            password_value = '123456'
-
-            located_email.send_keys(email_value)
-            time.sleep(1)
-            located_password.send_keys(password_value)
-            time.sleep(1)
-            located_enter_button.click()
-            time.sleep(1)
+        self.__login(driver)
 
         driver.find_element(By.XPATH, ".//p[text()='Личный Кабинет']").click()
         time.sleep(1)
