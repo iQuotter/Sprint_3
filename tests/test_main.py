@@ -92,7 +92,7 @@ class TestStellarBurgers:
 
     # @pytest.mark.skip
     @pytest.mark.exit
-    def test_exit_accout(self, driver):
+    def test_exit_account(self, driver):
         self.__wait_element(driver, ".//p[text()='Личный Кабинет']")
         driver.find_element(*MainPageLocators.LOGIN_LINK).click()
 
