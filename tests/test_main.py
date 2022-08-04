@@ -7,6 +7,7 @@ from selenium.webdriver.support import expected_conditions as ec
 
 
 from GenerateUser import User
+from .locators import *
 
 
 class TestStellarBurgers:
@@ -17,11 +18,11 @@ class TestStellarBurgers:
 
     def __login(self, driver):
         if driver.current_url == "https://stellarburgers.nomoreparties.site/login":
-            located_email = driver.find_element(By.XPATH, ".//input[(@name='name')]")
+            located_email = driver.find_element(*LoginPageLocators.FIELD_NAME)
             time.sleep(1)
-            located_password = driver.find_element(By.XPATH, ".//input[(@name='Пароль')]")
+            located_password = driver.find_element(*LoginPageLocators.FIELD_PASSWORD)
             time.sleep(1)
-            located_enter_button = driver.find_element(By.XPATH, ".//*[text()='Войти']")
+            located_enter_button = driver.find_element(*LoginPageLocators.BUTTON_ENTER)
             time.sleep(1)
 
             email_value = 'EvgeniyGrekov231@mail.ru'
@@ -35,12 +36,13 @@ class TestStellarBurgers:
             time.sleep(1)
 
     # @pytest.mark.skip()
+    @pytest.mark.smoke
     def test_registration(self, driver):
         driver.get("https://stellarburgers.nomoreparties.site/register")
 
-        located_name, located_email  = driver.find_elements(By.XPATH, ".//input[(@name='name')]")
-        located_password = driver.find_element(By.XPATH, ".//input[@name='Пароль']")
-        located_reg_button = driver.find_element(By.XPATH, ".//button[text()='Зарегистрироваться']")
+        located_name, located_email  = driver.find_elements(*RegistrationPageLocators.FIELD_NAME)
+        located_password = driver.find_element(*RegistrationPageLocators.FIELD_PASSWORD)
+        located_reg_button = driver.find_element(*RegistrationPageLocators.BUTTON_REGISTRATION)
 
         user_name = TestStellarBurgers.FirstName
         email_value = TestStellarBurgers.Email
@@ -53,22 +55,22 @@ class TestStellarBurgers:
         time.sleep(1)
 
         if driver.current_url == "https://stellarburgers.nomoreparties.site/login":
-            located_email = driver.find_element(By.XPATH, ".//input[(@name='name')]")
-            located_password = driver.find_element(By.XPATH, ".//input[@name='Пароль']")
-            located_enter_button = driver.find_element(By.XPATH, "//button[text()='Войти']")
+            located_email = driver.find_element(*LoginPageLocators.FIELD_NAME)
+            located_password = driver.find_element(*LoginPageLocators.FIELD_PASSWORD)
+            located_enter_button = driver.find_element(*LoginPageLocators.BUTTON_ENTER)
 
             located_email.send_keys(email_value)
             located_password.send_keys(password_value)
             located_enter_button.click()
 
-        driver.find_element(By.XPATH, ".//p[text()='Личный Кабинет']").click()
+        driver.find_element(*MainPageLocators.LOGIN_LINK).click()
         time.sleep(1)
         assert driver.current_url == "https://stellarburgers.nomoreparties.site/account/profile"
         assert driver.find_element(By.XPATH, f".//input[(@value='{email_value.lower()}')]").is_displayed()
 
         self.__wait_element(driver, ".//button[text()='Выход']")
         time.sleep(1)
-        driver.find_element(By.XPATH, ".//button[text()='Выход']").click()
+        driver.find_element(*ProfileLocators.BUTTON_EXIT).click()
         time.sleep(1)
 
     # @pytest.mark.skip()
@@ -97,11 +99,11 @@ class TestStellarBurgers:
 
     # @pytest.mark.skip()
     def test_authorization_button_personal_account(self, driver):
-        driver.find_element(By.XPATH, ".//p[text()='Личный Кабинет']").click()
+        driver.find_element(*MainPageLocators.LOGIN_LINK).click()
 
         self.__login(driver)
 
-        driver.find_element(By.XPATH, "//p[text()='Личный Кабинет']").click()
+        driver.find_element(*MainPageLocators.LOGIN_LINK).click()
 
         assert driver.current_url == "https://stellarburgers.nomoreparties.site/account" \
                or driver.current_url == "https://stellarburgers.nomoreparties.site/account/profile"
