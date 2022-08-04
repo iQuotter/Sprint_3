@@ -25,9 +25,6 @@ class TestStellarBurgers:
             located_password = driver.find_element(*LoginPageLocators.FIELD_PASSWORD)
             located_enter_button = driver.find_element(*LoginPageLocators.BUTTON_ENTER)
 
-            # email_value = 'EvgeniyGrekov231@mail.ru'
-            # password_value = '123456'
-
             # без этих задержек не передаются данные в поля
             located_email.send_keys(email_value)
             time.sleep(0.3)
