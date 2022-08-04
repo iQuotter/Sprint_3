@@ -211,7 +211,7 @@ class TestStellarBurgers:
         self.__wait_element(driver, ".//div/div/*[text()='Начинки']")
 
         located_button_roll = driver.find_element(*MainPageLocators.BUTTON_ROLLS)
-        located_button_sauces = driver.find_element(*MainPageLocators.BUTTIN_SAUCES)
+        located_button_sauces = driver.find_element(*MainPageLocators.BUTTON_SAUCES)
         located_button_stuffing = driver.find_element(*MainPageLocators.BUTTON_TOPPINGS)
 
         located_button_sauces.click()

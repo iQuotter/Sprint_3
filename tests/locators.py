@@ -9,7 +9,7 @@ class MainPageLocators:
     LOGO = (By.XPATH, ".//a[@href='/']")
 
     BUTTON_ROLLS = (By.XPATH, ".//div/div/*[text()='Булки']")
-    BUTTIN_SAUCES = (By.XPATH, ".//div/div/*[text()='Соусы']")
+    BUTTON_SAUCES = (By.XPATH, ".//div/div/*[text()='Соусы']")
     BUTTON_TOPPINGS = (By.XPATH, ".//div/div/*[text()='Начинки']")
     TEXT_ROLLS = (By.XPATH, ".//h2[text()='Булки']")
     TEXT_SAUCES = (By.XPATH, ".//h2[text()='Соусы']")
