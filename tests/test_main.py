@@ -50,13 +50,13 @@ class TestStellarBurgers:
         if driver.current_url == "https://stellarburgers.nomoreparties.site/login":
             self.__login(driver, TestStellarBurgers.Email, TestStellarBurgers.Password)
 
-        self.__wait_element(driver, ".//p[text()='Личный Кабинет']")
+        self.__wait_element(driver, f"{MainPageLocators.LOGIN_LINK[1]}")
         driver.find_element(*MainPageLocators.LOGIN_LINK).click()
 
         self.__wait_element(driver, f".//input[(@value='{TestStellarBurgers.Email.lower()}')]")
         assert driver.find_element(By.XPATH, f".//input[(@value='{TestStellarBurgers.Email.lower()}')]").is_displayed()
 
-        self.__wait_element(driver, ".//button[text()='Выход']")
+        self.__wait_element(driver, f"{ProfileLocators.BUTTON_EXIT[1]}")
         driver.find_element(*ProfileLocators.BUTTON_EXIT).click()
 
     # @pytest.mark.skip
@@ -64,27 +64,24 @@ class TestStellarBurgers:
     def test_field_password_lower_6(self, driver):
         driver.get("https://stellarburgers.nomoreparties.site/login")
 
-        self.__wait_element(driver, ".//input[(@name='name')]")
-        self.__wait_element(driver, ".//input[(@name='Пароль')]")
+        self.__wait_element(driver, f"{LoginPageLocators.FIELD_NAME[1]}")
+        self.__wait_element(driver, f"{LoginPageLocators.FIELD_PASSWORD[1]}")
 
-        located_email = driver.find_element(*LoginPageLocators.FIELD_NAME)
-        located_password = driver.find_element(*LoginPageLocators.FIELD_PASSWORD)
+        driver.find_element(*LoginPageLocators.FIELD_PASSWORD).send_keys("12345")
+        driver.find_element(*LoginPageLocators.FIELD_NAME).click()
 
-        located_password.send_keys("12345")
-        located_email.click()
-
-        self.__wait_element(driver, ".//p[text()='Некорректный пароль']")
+        self.__wait_element(driver, f"{InfoLocators.FALSE_PASSWORD[1]}")
         assert driver.find_element(*InfoLocators.FALSE_PASSWORD).is_displayed()
 
     # @pytest.mark.skip
     @pytest.mark.authorization
     def test_authorization_button_personal_account(self, driver):
-        self.__wait_element(driver, ".//p[text()='Личный Кабинет']")
+        self.__wait_element(driver, f"{MainPageLocators.LOGIN_LINK[1]}")
         driver.find_element(*MainPageLocators.LOGIN_LINK).click()
 
         self.__login(driver)
 
-        self.__wait_element(driver, ".//p[text()='Личный Кабинет']")
+        self.__wait_element(driver, f"{MainPageLocators.LOGIN_LINK[1]}")
         driver.find_element(*MainPageLocators.LOGIN_LINK).click()
 
         self.__wait_element(driver, f".//input[(@value='{'EvgeniyGrekov231@mail.ru'.lower()}')]")
@@ -93,30 +90,30 @@ class TestStellarBurgers:
     # @pytest.mark.skip
     @pytest.mark.exit
     def test_exit_account(self, driver):
-        self.__wait_element(driver, ".//p[text()='Личный Кабинет']")
+        self.__wait_element(driver, f"{MainPageLocators.LOGIN_LINK[1]}")
         driver.find_element(*MainPageLocators.LOGIN_LINK).click()
 
         self.__login(driver)
 
-        self.__wait_element(driver, ".//p[text()='Личный Кабинет']")
+        self.__wait_element(driver, f"{MainPageLocators.LOGIN_LINK[1]}")
         driver.find_element(*MainPageLocators.LOGIN_LINK).click()
 
-        self.__wait_element(driver, ".//button[text()='Выход']")
+        self.__wait_element(driver, f"{ProfileLocators.BUTTON_EXIT[1]}")
         driver.find_element(*ProfileLocators.BUTTON_EXIT).click()
 
-        self.__wait_element(driver, ".//p[text()='Личный Кабинет']")
+        self.__wait_element(driver, f"{MainPageLocators.LOGIN_LINK[1]}")
         driver.find_element(*MainPageLocators.LOGIN_LINK).click()
         assert driver.current_url == "https://stellarburgers.nomoreparties.site/login"
 
     # @pytest.mark.skip
     @pytest.mark.authorization
     def test_authorization_button_login(self, driver):
-        self.__wait_element(driver, ".//p[text()='Личный Кабинет']")
+        self.__wait_element(driver, f"{MainPageLocators.LOGIN_ACCOUNT_BUTTON[1]}")
         driver.find_element(*MainPageLocators.LOGIN_ACCOUNT_BUTTON).click()
 
         self.__login(driver)
 
-        self.__wait_element(driver, ".//p[text()='Личный Кабинет']")
+        self.__wait_element(driver, f"{MainPageLocators.LOGIN_LINK[1]}")
         driver.find_element(*MainPageLocators.LOGIN_LINK).click()
 
         self.__wait_element(driver, f".//input[(@value='{'EvgeniyGrekov231@mail.ru'.lower()}')]")
@@ -127,11 +124,12 @@ class TestStellarBurgers:
     def test_authorization_in_menu_password_recovery(self, driver):
         driver.get("https://stellarburgers.nomoreparties.site/forgot-password")
 
-        self.__wait_element(driver, ".//*[text()='Войти']")
+        self.__wait_element(driver, f"{LoginPageLocators.BUTTON_ENTER[1]}")
         driver.find_element(*LoginPageLocators.BUTTON_ENTER).click()
 
         self.__login(driver)
 
+        self.__wait_element(driver, f"{MainPageLocators.LOGIN_LINK[1]}")
         driver.find_element(*MainPageLocators.LOGIN_LINK).click()
 
         self.__wait_element(driver, f".//input[(@value='{'EvgeniyGrekov231@mail.ru'.lower()}')]")
@@ -142,12 +140,12 @@ class TestStellarBurgers:
     def test_authorization_menu_registration(self, driver):
         driver.get("https://stellarburgers.nomoreparties.site/register")
 
-        self.__wait_element(driver, ".//*[text()='Войти']")
+        self.__wait_element(driver, f"{LoginPageLocators.BUTTON_ENTER[1]}")
         driver.find_element(*LoginPageLocators.BUTTON_ENTER).click()
 
         self.__login(driver)
 
-        self.__wait_element(driver, ".//p[text()='Личный Кабинет']")
+        self.__wait_element(driver, f"{MainPageLocators.LOGIN_LINK[1]}")
         driver.find_element(*MainPageLocators.LOGIN_LINK).click()
 
         self.__wait_element(driver, f".//input[(@value='{'EvgeniyGrekov231@mail.ru'.lower()}')]")
@@ -156,12 +154,12 @@ class TestStellarBurgers:
     # @pytest.mark.skip
     @pytest.mark.navigation
     def test_transition_to_personal_account(self, driver):
-        self.__wait_element(driver, ".//p[text()='Личный Кабинет']")
+        self.__wait_element(driver, f"{MainPageLocators.LOGIN_LINK[1]}")
         driver.find_element(*MainPageLocators.LOGIN_LINK).click()
 
         self.__login(driver)
 
-        self.__wait_element(driver, ".//p[text()='Личный Кабинет']")
+        self.__wait_element(driver, f"{MainPageLocators.LOGIN_LINK[1]}")
         driver.find_element(*MainPageLocators.LOGIN_LINK).click()
 
         self.__wait_element(driver, f".//input[(@value='{'EvgeniyGrekov231@mail.ru'.lower()}')]")
@@ -170,14 +168,14 @@ class TestStellarBurgers:
     # @pytest.mark.skip
     @pytest.mark.navigation
     def test_transition_logo(self, driver):
-        self.__wait_element(driver, ".//p[text()='Личный Кабинет']")
+        self.__wait_element(driver, f"{MainPageLocators.LOGIN_LINK[1]}")
         driver.find_element(*MainPageLocators.LOGIN_LINK).click()
 
         self.__login(driver)
 
-        self.__wait_element(driver, ".//p[text()='Личный Кабинет']")
+        self.__wait_element(driver, f"{MainPageLocators.LOGIN_LINK[1]}")
         driver.find_element(*MainPageLocators.LOGIN_LINK).click()
-        self.__wait_element(driver, ".//a[@href='/']")
+        self.__wait_element(driver, f"{MainPageLocators.LOGO[1]}")
         driver.find_element(*MainPageLocators.LOGO).click()
 
         assert driver.current_url == "https://stellarburgers.nomoreparties.site/"
@@ -185,14 +183,14 @@ class TestStellarBurgers:
     # @pytest.mark.skip
     @pytest.mark.navigation
     def test_transition_constructor(self, driver):
-        self.__wait_element(driver, ".//p[text()='Личный Кабинет']")
+        self.__wait_element(driver, f"{MainPageLocators.LOGIN_LINK[1]}")
         driver.find_element(*MainPageLocators.LOGIN_LINK).click()
 
         self.__login(driver)
 
-        self.__wait_element(driver, ".//p[text()='Личный Кабинет']")
+        self.__wait_element(driver, f"{MainPageLocators.LOGIN_LINK[1]}")
         driver.find_element(*MainPageLocators.LOGIN_LINK).click()
-        self.__wait_element(driver, ".//p[text()='Конструктор']")
+        self.__wait_element(driver, f"{MainPageLocators.CONSTRUCTOR[1]}")
         driver.find_element(*MainPageLocators.CONSTRUCTOR).click()
 
         assert driver.current_url == "https://stellarburgers.nomoreparties.site/"
@@ -200,12 +198,9 @@ class TestStellarBurgers:
     # @pytest.mark.skip
     @pytest.mark.navigation
     def test_navigation_food_menu(self, driver):
-        if driver.current_url != "https://stellarburgers.nomoreparties.site/":
-            driver.get("https://stellarburgers.nomoreparties.site/")
-
-        self.__wait_element(driver, ".//div/div/*[text()='Булки']")
-        self.__wait_element(driver, ".//div/div/*[text()='Соусы']")
-        self.__wait_element(driver, ".//div/div/*[text()='Начинки']")
+        self.__wait_element(driver, f"{MainPageLocators.BUTTON_ROLLS[1]}")
+        self.__wait_element(driver, f"{MainPageLocators.BUTTON_SAUCES[1]}")
+        self.__wait_element(driver, f"{MainPageLocators.BUTTON_TOPPINGS[1]}")
 
         located_button_roll = driver.find_element(*MainPageLocators.BUTTON_ROLLS)
         located_button_sauces = driver.find_element(*MainPageLocators.BUTTON_SAUCES)
