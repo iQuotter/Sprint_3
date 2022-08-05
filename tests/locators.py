@@ -32,7 +32,7 @@ class ProfileLocators:
 
 class InfoLocators:
     FALSE_PASSWORD = (By.XPATH, ".//p[text()='Некорректный пароль']")
-    ASSEMBLE_BURGER = (By.XPATH, ".//section[1]/h1")
+    ASSEMBLE_BURGER = (By.XPATH, ".//h1[text()='Соберите бургер']")
 
 
 class ListOfProducts:
