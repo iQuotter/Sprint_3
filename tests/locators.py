@@ -3,7 +3,7 @@ from selenium.webdriver.common.by import By
 
 class MainPageLocators:
     LOGIN_LINK = (By.XPATH, ".//p[text()='Личный Кабинет']")
-    LOGIN_ACCOUNT_BUTTON = (By.XPATH, ".//button[contains(text(),'Войти')]")
+    LOGIN_ACCOUNT_BUTTON = (By.XPATH, ".//button[contains(text(),'Войти в аккаунт')]")
     CONSTRUCTOR = (By.XPATH, ".//p[text()='Конструктор']")
     ORDER_FEED = (By.XPATH, ".//p[text()='Лента Заказов']")
     LOGO = (By.XPATH, ".//a[@href='/']")
