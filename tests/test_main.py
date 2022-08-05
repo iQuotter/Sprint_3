@@ -16,21 +16,22 @@ class TestStellarBurgers:
         WebDriverWait(driver, 3).until(ec.visibility_of_element_located((By.XPATH, xpath_element)))
 
     def __login(self, driver, email_value='EvgeniyGrekov231@mail.ru', password_value='123456'):
-        if driver.current_url == "https://stellarburgers.nomoreparties.site/login":
-            self.__wait_element(driver, ".//input[(@name='name')]")
-            self.__wait_element(driver, ".//input[(@name='Пароль')]")
-            self.__wait_element(driver, ".//*[text()='Войти']")
+        driver.get("https://stellarburgers.nomoreparties.site/login")
 
-            located_email = driver.find_element(*LoginPageLocators.FIELD_NAME)
-            located_password = driver.find_element(*LoginPageLocators.FIELD_PASSWORD)
-            located_enter_button = driver.find_element(*LoginPageLocators.BUTTON_ENTER)
+        self.__wait_element(driver, f"{LoginPageLocators.FIELD_NAME[1]}")
+        self.__wait_element(driver, f"{LoginPageLocators.FIELD_PASSWORD[1]}")
+        self.__wait_element(driver, f"{LoginPageLocators.BUTTON_ENTER[1]}")
 
-            # без этих задержек не передаются данные в поля
-            located_email.send_keys(email_value)
-            time.sleep(0.3)
-            located_password.send_keys(password_value)
-            time.sleep(0.3)
-            located_enter_button.click()
+        located_email = driver.find_element(*LoginPageLocators.FIELD_NAME)
+        located_password = driver.find_element(*LoginPageLocators.FIELD_PASSWORD)
+        located_enter_button = driver.find_element(*LoginPageLocators.BUTTON_ENTER)
+
+        # без этих задержек не передаются данные в поля
+        located_email.send_keys(email_value)
+        time.sleep(0.3)
+        located_password.send_keys(password_value)
+        time.sleep(0.3)
+        located_enter_button.click()
 
     # @pytest.mark.skip
     @pytest.mark.registration
