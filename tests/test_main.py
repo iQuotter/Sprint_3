@@ -46,10 +46,8 @@ class TestStellarBurgers:
         located_email.send_keys(TestStellarBurgers.Email)
         located_password.send_keys(TestStellarBurgers.Password)
         located_reg_button.click()
-        time.sleep(1) # без этой задержки условие if не отрабатывает
 
-        if driver.current_url == "https://stellarburgers.nomoreparties.site/login":
-            self.__login(driver, TestStellarBurgers.Email, TestStellarBurgers.Password)
+        self.__login(driver, TestStellarBurgers.Email, TestStellarBurgers.Password)
 
         self.__wait_element(driver, f"{MainPageLocators.LOGIN_LINK[1]}")
         driver.find_element(*MainPageLocators.LOGIN_LINK).click()
