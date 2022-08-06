@@ -10,7 +10,8 @@ from .locators import *
 class TestStellarBurgers:
     FirstName, Email, Password = User().generation_of_user_data()
 
-    def __wait_element(self, driver, xpath_element):
+    @staticmethod
+    def __wait_element(driver, xpath_element):
         WebDriverWait(driver, 3).until(ec.visibility_of_element_located((By.XPATH, xpath_element)))
 
     def __login(self, driver, email_value='EvgeniyGrekov231@mail.ru', password_value='123456'):
