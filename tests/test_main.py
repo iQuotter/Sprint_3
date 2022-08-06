@@ -34,7 +34,6 @@ class TestStellarBurgers:
 
     # @pytest.mark.skip
     @pytest.mark.registration
-    @pytest.mark.smoke
     def test_registration(self, driver):
         driver.get("https://stellarburgers.nomoreparties.site/register")
 
