@@ -26,15 +26,15 @@ class TestStellarBurgers:
         located_password = driver.find_element(*LoginPageLocators.FIELD_PASSWORD)
         located_enter_button = driver.find_element(*LoginPageLocators.BUTTON_ENTER)
 
-        # без этих задержек не передаются данные в поля
         located_email.send_keys(email_value)
-        time.sleep(0.3)
         located_password.send_keys(password_value)
-        time.sleep(0.3)
         located_enter_button.click()
+
+        WebDriverWait(driver, 5).until(ec.url_changes("https://stellarburgers.nomoreparties.site/login"))
 
     # @pytest.mark.skip
     @pytest.mark.registration
+    @pytest.mark.smoke
     def test_registration(self, driver):
         driver.get("https://stellarburgers.nomoreparties.site/register")
 
