@@ -1,4 +1,6 @@
 # Финальный проект 3 спринта
+### Тестируемый сайт
+https://stellarburgers.nomoreparties.site
 
 
 ### Задачи
